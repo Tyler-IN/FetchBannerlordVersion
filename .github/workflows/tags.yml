@@ -22,6 +22,6 @@ jobs:
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
         nupkg-path: './FetchBannerlordVersion/nupkg/*.nupkg'
-        repo-owner: 'Tyler-IN'
+        repo-owner: 'BUTR'
         gh-user: 'Tyler-IN'
         token: ${{ secrets.GITHUB_TOKEN }}
