@@ -1,33 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <AssemblyName>FetchBannerlordVersion</AssemblyName>
-        <PackageId>FetchBannerlordVersion</PackageId>
-        <Product>Fetch Bannerlord Version</Product>
-        <Title>Fetch Bannerlord Version</Title>
-        <PackageOutputPath>./nupkg</PackageOutputPath>
-        <Version>1.0.0</Version>
-        <Copyright>Copyright © 2020 Tyler Young</Copyright>
-        <Authors>Tyler Young</Authors>
-        <Company />
-        <Description>Fetches the version string from a Mount &amp; Blade II: Bannerlord assembly directory.</Description>
-        <PackageTags>bannerlord</PackageTags>
-        <LangVersion>8</LangVersion>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <ToolCommandName>getblver</ToolCommandName>
-        <IsTool>true</IsTool>
-        <PackAsTool>true</PackAsTool>
-        <PackageProjectUrl>http://github.com/Tyler-IN/FetchBannerlordVersion</PackageProjectUrl>
-        <RepositoryUrl>http://github.com/Tyler-IN/FetchBannerlordVersion</RepositoryUrl>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>FetchBannerlordVersion</AssemblyName>
+    <LangVersion>8.0</LangVersion>
+    <PackageId>FetchBannerlordVersion</PackageId>
+    <Product>Fetch Bannerlord Version</Product>
+    <Title>Fetch Bannerlord Version</Title>
+    <Version>1.0.1</Version>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Copyright>Copyright © 2020 Tyler Young</Copyright>
+    <Authors>Tyler Young, Aragas</Authors>
+    <Description>Fetches the version metadata from a Mount &amp; Blade II: Bannerlord assembly directory.</Description>
+    <PackageTags>bannerlord</PackageTags>
+    <ToolCommandName>getblmeta</ToolCommandName>
+    <IsTool>true</IsTool>
+    <PackAsTool>true</PackAsTool>
+    <PackageProjectUrl>http://github.com/BUTR/FetchBannerlordVersion</PackageProjectUrl>
+    <RepositoryUrl>http://github.com/BUTR/FetchBannerlordVersion</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="CommandLineParser" Version="2.8.0" />
-        <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-        <PackageReference Include="System.Reflection.Metadata" Version="1.8.1" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.8.1" />
+  </ItemGroup>
+
 </Project>

@@ -1,31 +1,68 @@
-﻿using System;
+﻿using CommandLine;
+
+using FetchBannerlordVersion.Options;
+
+using System;
 using System.IO;
 
-namespace FetchBannerlordVersion {
+namespace FetchBannerlordVersion
+{
+    public static partial class Program
+    {
+        private const string Assembly = "TaleWorlds.Library.dll";
 
-  public static partial class Program {
+        public static void Main(string[] args) => Parser
+            .Default
+            .ParseArguments<VersionTypeOptions, VersionOptions, ChangeSetOptions>(args)
+            .WithParsed<VersionTypeOptions>(o =>
+            { 
+                try
+                {
+                    var libPath = Path.Combine(o.Directory, Assembly);
 
-    public static int Main(string[] args) {
-      if (args.Length < 1 || string.IsNullOrEmpty(args[0]))
-        throw new ArgumentNullException(nameof(args));
+                    Console.WriteLine(GetVersionType(libPath).ToString());
+                    Environment.Exit(0);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.ToString());
+                    Environment.Exit(1);
+                }
+            })
+            .WithParsed<VersionOptions>(o =>
+            { 
+                try
+                {
+                    var libPath = Path.Combine(o.Directory, Assembly);
 
-      try {
-        var libPath = Path.Combine(args[0], "TaleWorlds.Library.dll");
+                    Console.WriteLine(GetVersion(libPath));
+                    Environment.Exit(0);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.ToString());
+                    Environment.Exit(1);
+                }
+            })
+            .WithParsed<ChangeSetOptions>(o =>
+            { 
+                try
+                {
+                    var libPath = Path.Combine(o.Directory, Assembly);
 
-        if (!File.Exists(libPath))
-          throw new FileNotFoundException(libPath);
-
-        var appVersion = ExtractVersionFromTaleWorldsLibrary(libPath, out var changeSet);
-
-        Console.WriteLine($"{appVersion}.{changeSet}");
-        return 0;
-      }
-      catch (Exception ex) {
-        Console.Error.WriteLine(ex.ToString());
-        return 1;
-      }
+                    Console.WriteLine(GetChangeSet(libPath).ToString());
+                    Environment.Exit(0);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.ToString());
+                    Environment.Exit(1);
+                }
+            })
+            .WithNotParsed(e =>
+            {
+                Console.Error.WriteLine(e.ToString());
+                Environment.Exit(1);
+            });
     }
-
-  }
-
 }
