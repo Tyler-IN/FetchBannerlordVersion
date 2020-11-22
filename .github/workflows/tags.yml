@@ -7,21 +7,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@master
       with:
         dotnet-version: 5.0.x
+
+    - name: Setup BUTR GPR
+      uses: actions/setup-dotnet@master
+      with:
+        source-url: https://nuget.pkg.github.com/BUTR/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
     - name: Install dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build -c Release --no-restore
+      
     - name: Pack
       run: dotnet pack -c Release --no-build --include-symbols
-    - name: Push Nupkg to GitHub Packages
-      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
-      with:
-        nupkg-path: './FetchBannerlordVersion/nupkg/*.nupkg'
-        repo-owner: 'BUTR'
-        gh-user: 'Tyler-IN'
-        token: ${{ secrets.GITHUB_TOKEN }}
+      
+   - name: Push to GPR
+      run: |
+           for f in ./FetchBannerlordVersion/nupkg/*.nupkg
+           do
+             curl -vX PUT -u "vslee:${{secrets.GITHUB_TOKEN}}" -F package=@$f https://nuget.pkg.github.com/BUTR/
+           done
+      shell: bash
