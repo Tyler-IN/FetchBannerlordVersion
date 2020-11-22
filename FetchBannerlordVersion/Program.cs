@@ -3,24 +3,19 @@
 using FetchBannerlordVersion.Options;
 
 using System;
-using System.IO;
 
 namespace FetchBannerlordVersion
 {
     public static partial class Program
     {
-        private const string Assembly = "TaleWorlds.Library.dll";
-
         public static void Main(string[] args) => Parser
             .Default
             .ParseArguments<VersionTypeOptions, VersionOptions, ChangeSetOptions>(args)
             .WithParsed<VersionTypeOptions>(o =>
-            { 
+            {
                 try
                 {
-                    var libPath = Path.Combine(o.Directory, Assembly);
-
-                    Console.WriteLine(GetVersionType(libPath).ToString());
+                    Console.WriteLine(GetVersionType(o.Directory, o.Library).ToString());
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
@@ -30,12 +25,10 @@ namespace FetchBannerlordVersion
                 }
             })
             .WithParsed<VersionOptions>(o =>
-            { 
+            {
                 try
                 {
-                    var libPath = Path.Combine(o.Directory, Assembly);
-
-                    Console.WriteLine(GetVersion(libPath));
+                    Console.WriteLine(GetVersion(o.Directory, o.Library));
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
@@ -45,12 +38,10 @@ namespace FetchBannerlordVersion
                 }
             })
             .WithParsed<ChangeSetOptions>(o =>
-            { 
+            {
                 try
                 {
-                    var libPath = Path.Combine(o.Directory, Assembly);
-
-                    Console.WriteLine(GetChangeSet(libPath).ToString());
+                    Console.WriteLine(GetChangeSet(o.Directory, o.Library).ToString());
                     Environment.Exit(0);
                 }
                 catch (Exception ex)

@@ -19,7 +19,7 @@ namespace FetchBannerlordVersion
                 .GetNestedType(mdReader, "Parameters")
                 .GetField(mdReader, "Version")
                 .GetCustomAttributes()
-                .Select(ah => mdReader.GetCustomAttribute(ah))
+                .Select(mdReader.GetCustomAttribute)
                 .First(a =>
                 {
                     var ctor = a.Constructor;
@@ -35,9 +35,9 @@ namespace FetchBannerlordVersion
         }
 
 
-        public static int GetChangeSet(string libPath)
+        public static int GetChangeSet(string libFolderPath, string libAssembly)
         {
-            switch (GetVersionType(libPath))
+            switch (GetVersionType(libFolderPath, libAssembly))
             {
                 case VersionType.Unknown:
                     return 0;
@@ -46,7 +46,7 @@ namespace FetchBannerlordVersion
                 case VersionType.V2:
                 case VersionType.V3:
                 {
-                    using var fs = File.OpenRead(libPath);
+                    using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                     using var peReader = new System.Reflection.PortableExecutable.PEReader(fs);
                     var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
                     var changeSetHandle = mdReader.TypeDefinitions
@@ -57,21 +57,33 @@ namespace FetchBannerlordVersion
 
                     return mdReader.GetBlobReader(changeSetBlob).ReadInt32();
                 }
+                case VersionType.V4:
+                {
+                    using var fs = File.OpenRead(Path.Combine(libFolderPath, "Version.xml"));
+                    using var reader = new StreamReader(fs);
+                    var xml = reader.ReadToEnd();
+                    using var xmlReader = new XmlTextReader(new StringReader(xml));
+                    xmlReader.Read();
+                    xmlReader.ReadToDescendant("Singleplayer");
+                    xmlReader.MoveToAttribute("Value");
+                    var split = xmlReader.Value.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    return int.Parse(split.Last());
+                }
                 default:
                     return 0;
             }
         }
 
-        public static string GetVersion(string libPath)
+        public static string GetVersion(string libFolderPath, string libAssembly)
         {
-            switch (GetVersionType(libPath))
+            switch (GetVersionType(libFolderPath, libAssembly))
             {
                 case VersionType.Unknown:
                     return "";
                 case VersionType.V1:
                 case VersionType.V2:
                 {
-                    using var fs = File.OpenRead(libPath);
+                    using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                     using var peReader = new System.Reflection.PortableExecutable.PEReader(fs);
                     var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
                     var versionVirtualFileAttribute = GetVirtualFileAttribute(mdReader);
@@ -87,7 +99,7 @@ namespace FetchBannerlordVersion
                 }
                 case VersionType.V3:
                 {
-                    using var fs = File.OpenRead(libPath);
+                    using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                     using var peReader = new System.Reflection.PortableExecutable.PEReader(fs);
                     var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
                     var versionVirtualFileAttribute = GetVirtualFileAttribute(mdReader);
@@ -102,14 +114,29 @@ namespace FetchBannerlordVersion
                     xmlReader.MoveToAttribute("Value");
                     return xmlReader.Value;
                 }
+                case VersionType.V4:
+                {
+                    using var fs = File.OpenRead(Path.Combine(libFolderPath, "Version.xml"));
+                    using var reader = new StreamReader(fs);
+                    var xml = reader.ReadToEnd();
+                    using var xmlReader = new XmlTextReader(new StringReader(xml));
+                    xmlReader.Read();
+                    xmlReader.ReadToDescendant("Singleplayer");
+                    xmlReader.MoveToAttribute("Value");
+                    var split = xmlReader.Value.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    return string.Join('.', split.Take(split.Length - 1));
+                }
                 default:
                     return "";
             }
         }
 
-        public static VersionType GetVersionType(string libPath)
+        public static VersionType GetVersionType(string libFolderPath, string libAssembly)
         {
-            using var fs = File.OpenRead(libPath);
+            if (File.Exists(Path.Combine(libFolderPath, "Version.xml")))
+                return VersionType.V4;
+
+            using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
             using var peReader = new System.Reflection.PortableExecutable.PEReader(fs);
             var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
 
