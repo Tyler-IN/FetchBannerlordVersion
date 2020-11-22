@@ -13,13 +13,18 @@ namespace FetchBannerlordVersion
         V1,
 
         /// <summary>
-        /// const int DefaultChangeSet in ApplicationVersion, Version.xml has single Version 
+        /// const int DefaultChangeSet in ApplicationVersion, Version.xml has single Version
         /// </summary>
         V2,
 
         /// <summary>
         /// const int DefaultChangeSet in ApplicationVersion, Version.xml has Version for singleplayer and multiplayer
         /// </summary>
-        V3
+        V3,
+
+        /// <summary>
+        /// ChangeSet and singleplayer/multiplayer in Version.xml
+        /// </summary>
+        V4
     }
 }
