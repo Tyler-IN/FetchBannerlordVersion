@@ -31,7 +31,7 @@ jobs:
     - name: Pack
       run: dotnet pack -c Release --no-build --include-symbols
       
-   - name: Push to GPR
+    - name: Push to GPR
       run: |
            for f in ./FetchBannerlordVersion/nupkg/*.nupkg
            do
