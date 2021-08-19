@@ -7,17 +7,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Setup
+      uses: butr/actions-common-setup@v1.1
       with:
-        dotnet-version: 5.x
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        
     - name: Install dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build -c Release --no-restore
+      
     - name: Pack
       run: dotnet pack -c Release --no-build --include-symbols
+      
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
