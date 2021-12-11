@@ -1,4 +1,4 @@
-namespace FetchBannerlordVersion
+﻿namespace FetchBannerlordVersion
 {
     public enum VersionType
     {
