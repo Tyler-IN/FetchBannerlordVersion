@@ -1,0 +1,64 @@
+name: Publish WASM NPM
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/publish-wasm.yml'
+      - 'src/FetchBannerlordVersion.WASM/**.*'
+      - 'src/FetchBannerlordVersion.TypeScript/**.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Publish on NPM and GPR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@master
+        with:
+          dotnet-version: 6.x.x
+
+      - uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: src/FetchBannerlordVersion.TypeScript/package-lock.json
+
+      - run: |
+          cd ./src/FetchBannerlordVersion.TypeScript && \
+          npm version $(node -p "require('./package.json').version = \
+          require('./package.json').version.split('.')[0]+'.' + \
+          require('./package.json').version.split('.')[1]+'.' + \
+          $(git rev-list --no-merges --count master)") --no-git-tag-version --allow-same-version;
+
+      - run: cd ./src/FetchBannerlordVersion.TypeScript && npm ci
+
+      - run: cd ./src/FetchBannerlordVersion.TypeScript && npm run build
+
+      - run: cd ./src/FetchBannerlordVersion.TypeScript && npm run test
+
+      - uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+          scope: '@butr'
+
+      - run: cd ./src/FetchBannerlordVersion.TypeScript && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM_TOKEN}}
+
+      - uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          scope: '@butr'
+
+      - run: cd ./src/FetchBannerlordVersion.TypeScript && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PUBLISH_GITHUB_TOKEN}}

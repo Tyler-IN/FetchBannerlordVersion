@@ -1,0 +1,13 @@
+.nyc_output
+build
+dist
+node_modules
+src/lib/dotnet.*
+src/test/**/**.js
+!src/test/**/_**.js
+!src/**/**.spec.js
+coverage
+*.tgz
+*.log
+FetchBannerlordVersion.Native.*
+!FetchBannerlordVersion.Native.TypeScript.esproj

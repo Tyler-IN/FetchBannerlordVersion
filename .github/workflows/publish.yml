@@ -1,4 +1,4 @@
-name: Publish
+name: Publish Tool and NuGet
 
 on:
   push:

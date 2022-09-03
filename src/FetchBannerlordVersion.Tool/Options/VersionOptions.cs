@@ -3,12 +3,12 @@
 namespace FetchBannerlordVersion.Options
 {
     [Verb("getversion")]
-    internal class VersionOptions
+    internal sealed record VersionOptions
     {
         [Option('f', "dir", Required = true)]
-        public string Directory { get; set; } = default!;
+        public string Directory { get; init; } = default!;
 
         [Option('l', "lib", Required = false)]
-        public string Library { get; set; } = "TaleWorlds.Library.dll";
+        public string Library { get; init; } = "TaleWorlds.Library.dll";
     }
 }

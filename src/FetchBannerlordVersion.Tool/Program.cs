@@ -6,7 +6,7 @@ using System;
 
 namespace FetchBannerlordVersion
 {
-    public static partial class Program
+    public static class Program
     {
         public static void Main(string[] args) => Parser
             .Default
@@ -15,7 +15,7 @@ namespace FetchBannerlordVersion
             {
                 try
                 {
-                    Console.WriteLine(GetVersionType(o.Directory, o.Library).ToString());
+                    Console.WriteLine(Fetcher.GetVersionType(o.Directory, o.Library).ToString());
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
@@ -28,7 +28,7 @@ namespace FetchBannerlordVersion
             {
                 try
                 {
-                    Console.WriteLine(GetVersion(o.Directory, o.Library));
+                    Console.WriteLine(Fetcher.GetVersion(o.Directory, o.Library));
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
@@ -41,7 +41,7 @@ namespace FetchBannerlordVersion
             {
                 try
                 {
-                    Console.WriteLine(GetChangeSet(o.Directory, o.Library).ToString());
+                    Console.WriteLine(Fetcher.GetChangeSet(o.Directory, o.Library).ToString());
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
