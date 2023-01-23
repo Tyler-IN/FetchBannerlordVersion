@@ -1,10 +1,10 @@
 #ifndef BFE_GUARD_H
 #define BFE_GUARD_H
 
-#include <napi.h>
+#include "utils.h"
 #include "Common.Native.h"
 #include "FetchBannerlordVersion.Native.h"
-#include "utils.h"
+#include <codecvt>
 
 using namespace Napi;
 using namespace Common;
@@ -14,7 +14,7 @@ using namespace Bannerlord::FetchVersion;
 namespace Bannerlord::FetchVersion
 {
 
-    const Value getChangeSetWrapped(const CallbackInfo &info)
+    const Value GetChangeSetWrapped(const CallbackInfo &info)
     {
         const auto env = info.Env();
         const auto gameFolderPath = info[0].As<String>();
@@ -27,7 +27,7 @@ namespace Bannerlord::FetchVersion
         return ThrowOrReturnUInt32(env, result);
     }
 
-    const Value getVersionWrapped(const CallbackInfo &info)
+    const Value GetVersionWrapped(const CallbackInfo &info)
     {
         const auto env = info.Env();
         const auto gameFolderPath = info[0].As<String>();
@@ -40,7 +40,7 @@ namespace Bannerlord::FetchVersion
         return ThrowOrReturnString(env, result);
     }
 
-    const Value getVersionTypeWrapped(const CallbackInfo &info)
+    const Value GetVersionTypeWrapped(const CallbackInfo &info)
     {
         const auto env = info.Env();
         const auto gameFolderPath = info[0].As<String>();
@@ -55,11 +55,11 @@ namespace Bannerlord::FetchVersion
 
     const Object Init(Env env, Object exports)
     {
-        exports.Set("getChangeSet", Function::New(env, getChangeSetWrapped));
+        exports.Set("getChangeSet", Function::New(env, GetChangeSetWrapped));
 
-        exports.Set("getVersion", Function::New(env, getVersionWrapped));
+        exports.Set("getVersion", Function::New(env, GetVersionWrapped));
 
-        exports.Set("getVersionType", Function::New(env, getVersionTypeWrapped));
+        exports.Set("getVersionType", Function::New(env, GetVersionTypeWrapped));
 
         return exports;
     }
