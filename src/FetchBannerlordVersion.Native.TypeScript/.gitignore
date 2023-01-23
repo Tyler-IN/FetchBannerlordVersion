@@ -11,3 +11,4 @@ coverage
 *.log
 FetchBannerlordVersion.Native.*
 !FetchBannerlordVersion.Native.TypeScript.esproj
+Common.Native.*

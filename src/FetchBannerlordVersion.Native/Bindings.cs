@@ -1,56 +1,73 @@
-﻿using System;
+﻿using BUTR.NativeAOT.Shared;
+
+using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace FetchBannerlordVersion.Native
 {
-    public class Bindings
+    public unsafe class Bindings
     {
-        [UnmanagedCallersOnly(EntryPoint = "get_change_set")]
-        public static int GetChangeSet(IntPtr p_game_folder_path, IntPtr p_lib_assembly)
+       [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set")]
+        public static return_value_uint32* GetChangeSet(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
+            Logger.LogInput(p_game_folder_path, p_lib_assembly);
             try
             {
-                var gameFolderPath = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_game_folder_path));
-                var libAssembly = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_lib_assembly));
+                var gameFolderPath = new string(param_string.ToSpan(p_game_folder_path));
+                var libAssembly = new string(param_string.ToSpan(p_lib_assembly));
 
-                return Fetcher.GetChangeSet(gameFolderPath, libAssembly);
+                var result = (uint) Fetcher.GetChangeSet(Path.GetFullPath(gameFolderPath), libAssembly);
+
+                Logger.LogOutputPrimitive(result);
+                return return_value_uint32.AsValue(result);
             }
-            catch
+            catch (Exception e)
             {
-                return -1;
+                Logger.LogException(e);
+                return return_value_uint32.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "get_version")]
-        public static IntPtr GetVersion(IntPtr p_game_folder_path, IntPtr p_lib_assembly)
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version")]
+        public static return_value_string* GetVersion(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
+            Logger.LogInput(p_game_folder_path, p_lib_assembly);
             try
             {
-                var gameFolderPath = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_game_folder_path));
-                var libAssembly = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_lib_assembly));
+                var gameFolderPath = new string(param_string.ToSpan(p_game_folder_path));
+                var libAssembly = new string(param_string.ToSpan(p_lib_assembly));
 
-                var version = Fetcher.GetVersion(gameFolderPath, libAssembly);
-                return Marshal.StringToHGlobalAnsi(version);
+                var result = Fetcher.GetVersion(Path.GetFullPath(gameFolderPath), libAssembly);
+
+                Logger.LogOutput(result);
+                return return_value_string.AsValue(BUTR.NativeAOT.Shared.Utils.Copy(result));
             }
-            catch
+            catch (Exception e)
             {
-                return IntPtr.Zero;
+                Logger.LogException(e);
+                return return_value_string.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "get_version_type")]
-        public static int GetVersionType(IntPtr p_game_folder_path, IntPtr p_lib_assembly)
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version_type")]
+        public static return_value_uint32* GetVersionType(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
+            Logger.LogInput(p_game_folder_path, p_lib_assembly);
             try
             {
-                var gameFolderPath = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_game_folder_path));
-                var libAssembly = Utils.UnescapeNonASCII(Marshal.PtrToStringAnsi(p_lib_assembly));
+                var gameFolderPath = new string(param_string.ToSpan(p_game_folder_path));
+                var libAssembly = new string(param_string.ToSpan(p_lib_assembly));
 
-                return (int) Fetcher.GetVersionType(gameFolderPath, libAssembly);
+                var result = (uint) Fetcher.GetVersionType(Path.GetFullPath(gameFolderPath), libAssembly);
+
+                Logger.LogOutputPrimitive(result);
+                return return_value_uint32.AsValue(result);
             }
-            catch
+            catch (Exception e)
             {
-                return -1;
+                Logger.LogException(e);
+                return return_value_uint32.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
             }
         }
     }

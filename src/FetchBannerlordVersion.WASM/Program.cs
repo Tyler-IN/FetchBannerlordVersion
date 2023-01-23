@@ -2,6 +2,8 @@
 
 using Microsoft.JSInterop;
 
+using System.IO;
+
 [assembly: JSNamespace("FetchBannerlordVersion.WASM", "FetchBannerlordVersion")]
 
 namespace FetchBannerlordVersion.WASM
@@ -12,14 +14,14 @@ namespace FetchBannerlordVersion.WASM
 
         [JSInvokable]
         public static int GetChangeSet(string gameFolderPath, string libAssembly) =>
-            Fetcher.GetChangeSet(gameFolderPath, libAssembly);
+            Fetcher.GetChangeSet(Path.GetFullPath(gameFolderPath), libAssembly);
 
         [JSInvokable]
         public static string GetVersion(string gameFolderPath, string libAssembly) =>
-            Fetcher.GetVersion(gameFolderPath, libAssembly);
+            Fetcher.GetVersion(Path.GetFullPath(gameFolderPath), libAssembly);
 
         [JSInvokable]
         public static VersionType GetVersionType(string gameFolderPath, string libAssembly) =>
-            Fetcher.GetVersionType(gameFolderPath, libAssembly);
+            Fetcher.GetVersionType(Path.GetFullPath(gameFolderPath), libAssembly);
     }
 }

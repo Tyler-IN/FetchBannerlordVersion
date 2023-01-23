@@ -19,15 +19,15 @@ export class FetchBannerlordVersionManager {
     }
 
     getChangeSet(gameFolderPath: string, libAssembly: string): number {
-        return dotnet.FetchBannerlordVersion.GetChangeSet(gameFolderPath, libAssembly);
+        return dotnet.FetchBannerlordVersion.getChangeSet(gameFolderPath, libAssembly);
     }
 
     getVersion(gameFolderPath: string, libAssembly: string): string {
-        return dotnet.FetchBannerlordVersion.GetVersion(gameFolderPath, libAssembly);
+        return dotnet.FetchBannerlordVersion.getVersion(gameFolderPath, libAssembly);
     }
 
     getVersionType(gameFolderPath: string, libAssembly: string): VersionType {
-        return dotnet.FetchBannerlordVersion.GetVersionType(gameFolderPath, libAssembly);
+        return dotnet.FetchBannerlordVersion.getVersionType(gameFolderPath, libAssembly);
     }
 
     async dispose(): Promise<void> {
