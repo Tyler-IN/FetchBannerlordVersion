@@ -20,11 +20,11 @@
     "url": "https://github.com/BUTR/FetchBannerlordVersion/issues"
   },
   "scripts": {
+    "install": "",
     "native:0": "dotnet publish -c Release ../FetchBannerlordVersion.WASM",
     "native:1": "copyfiles -f ../FetchBannerlordVersion.WASM/bin/dotnet.js src/lib",
     "native:2": "copyfiles -f ../FetchBannerlordVersion.WASM/bin/dotnet.js.map src/lib",
     "native:3": "copyfiles -f ../FetchBannerlordVersion.WASM/bin/dotnet.d.ts src/lib",
-    "preinstall": "npm run native:0 && npm run native:1 && npm run native:2 && npm run native:3",
     "build": "run-s native:* && run-p build:*",
     "build-ts": "run-p build:*",
     "build-native": "run-s native:*",

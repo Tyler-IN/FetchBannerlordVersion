@@ -21,12 +21,12 @@
     "url": "https://github.com/BUTR/FetchBannerlordVersion/issues"
   },
   "scripts": {
+    "install": "",
     "native:0": "dotnet publish -r win-x64 --self-contained -c Release ../FetchBannerlordVersion.Native",
     "native:1": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll .",
     "native:2": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.lib .",
     "native:3": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/FetchBannerlordVersion.Native.h .",
     "native:4": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/Common.Native.h .",
-    "preinstall": "npm run native:0 && npm run native:1 && npm run native:2 && npm run native:3 && npm run native:4",
     "build": "run-s native:* && run-s build:*",
     "build-ts": "run-s build:*",
     "build-native": "run-s native:*",
