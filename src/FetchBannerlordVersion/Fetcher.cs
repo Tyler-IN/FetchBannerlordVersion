@@ -40,7 +40,7 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -85,7 +85,7 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -148,10 +148,13 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 if (File.Exists(Path.Combine(libFolderPath, "Version.xml")))
                     return VersionType.V4;
 
+                if (!File.Exists(Path.Combine(libFolderPath, libAssembly)))
+                    return VersionType.Unknown;
+                
                 using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                 using var peReader = new PEReader(fs);
                 var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);

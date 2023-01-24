@@ -2,32 +2,22 @@ import test from 'ava';
 
 import { FetchBannerlordVersionManager } from '../lib/FetchBannerlordVersionManager';
 
-test('sort', async (t) => {
+test('Main', async (t) => {
   const fetcher = await FetchBannerlordVersionManager.createAsync();
 
   const path = "./../test/";
   const dllName = 'TaleWorlds.Library.dll';
 
+  const changeSet = fetcher.getChangeSet(path, dllName);
+  t.is(changeSet, 321460);
+  
   const version = fetcher.getVersion(path, dllName);
-  if (version !== 'e1.8.0') {
-    t.fail();
-    return;
-  }
+  t.is(version, 'e1.8.0');
 
   const versionType = fetcher.getVersionType(path, dllName);
-  if (versionType !== 4) {
-    t.fail();
-    return;
-  }
-
-  const changeSet = fetcher.getChangeSet(path, dllName);
-  if (changeSet !== 321460) {
-    t.fail();
-    return;
-  }
+  t.is(versionType, 4);
 
   await fetcher.dispose();
 
   t.pass();
-
 });

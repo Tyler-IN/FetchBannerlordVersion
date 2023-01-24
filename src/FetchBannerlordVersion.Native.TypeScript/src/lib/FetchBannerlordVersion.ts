@@ -3,6 +3,7 @@ import { IFetchBannerlordVersion } from "./types";
 const fetcher: IFetchBannerlordVersion = require('./../../fetchblversion.node');
 
 export class FetchBannerlordVersion {
+  /* istanbul ignore next */
   private constructor() { }
 
   static getChangeSet(gameFolderPath: string, libAssembly: string): number {
