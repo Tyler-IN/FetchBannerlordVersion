@@ -24,6 +24,7 @@
     "libauth",
     "librarywasm",
     "Metadatas",
+    "mikhailov",
     "mkdir",
     "nocheck",
     "prettierignore",
@@ -31,7 +32,8 @@
     "Singleplayer",
     "transpiled",
     "typedoc",
-    "untracked"
+    "untracked",
+    "vitalii"
   ],
   "flagWords": [],
   "ignorePaths": [

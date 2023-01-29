@@ -5,7 +5,7 @@ import { FetchBannerlordVersionManager } from '../lib/FetchBannerlordVersionMana
 test('Main', async (t) => {
   const fetcher = await FetchBannerlordVersionManager.createAsync();
 
-  const path = "./../test/";
+  const path = "C:/Users/vitalii.mikhailov/Git/Level0/FetchBannerlordVersion/src/FetchBannerlordVersion.TypeScript/build/module/test";
   const dllName = 'TaleWorlds.Library.dll';
 
   const changeSet = fetcher.getChangeSet(path, dllName);

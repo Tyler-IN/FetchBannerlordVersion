@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace FetchBannerlordVersion.Native
 {
-    public unsafe class Bindings
+    public static unsafe partial class Bindings
     {
        [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set")]
         public static return_value_uint32* GetChangeSet(param_string* p_game_folder_path, param_string* p_lib_assembly)

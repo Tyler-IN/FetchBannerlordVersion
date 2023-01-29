@@ -1,4 +1,4 @@
-#include "Bannerlord.FetchVersion.h"
+#include "Bannerlord.FetchVersion.hpp"
 #include <napi.h>
 
 using namespace Napi;

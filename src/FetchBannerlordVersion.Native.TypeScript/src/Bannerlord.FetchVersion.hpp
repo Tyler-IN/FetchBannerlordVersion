@@ -1,7 +1,7 @@
-#ifndef BFE_GUARD_H
-#define BFE_GUARD_H
+#ifndef BFE_GUARD_HPP_
+#define BFE_GUARD_HPP_
 
-#include "utils.h"
+#include "utils.hpp"
 #include "Common.Native.h"
 #include "FetchBannerlordVersion.Native.h"
 #include <codecvt>

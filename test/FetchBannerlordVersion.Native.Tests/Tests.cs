@@ -3,9 +3,10 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+using static BUTR.NativeAOT.Shared.Utils;
 using static FetchBannerlordVersion.Native.Tests.Utils2;
 
-namespace Bannerlord.ModuleManager.Native.Tests;
+namespace FetchBannerlordVersion.Native.Tests;
 
 public partial class Tests
 {
@@ -26,15 +27,15 @@ public partial class Tests
         var path = Path.GetFullPath("./Data");
         var dllName = "TaleWorlds.Library.dll";
         
-        var (changeSetError, changeSet) = GetResult(bfv_get_change_set((param_string*) Utils.Copy(path), (param_string*) Utils.Copy(dllName)));
+        var (changeSetError, changeSet) = GetResult(bfv_get_change_set((param_string*) Copy(path), (param_string*) Copy(dllName)));
         Assert.That(changeSetError, Is.Empty);
         Assert.That(changeSet, Is.EqualTo(321460));
         
-        var (versionError, version) = GetResult(bfv_get_version((param_string*) Utils.Copy(path), (param_string*) Utils.Copy(dllName)));
+        var (versionError, version) = GetResult(bfv_get_version((param_string*) Copy(path), (param_string*) Copy(dllName)));
         Assert.That(versionError, Is.Empty);
         Assert.That(version, Is.EqualTo("e1.8.0"));
         
-        var (versionTypeError, versionType) = GetResult(bfv_get_version_type((param_string*) Utils.Copy(path), (param_string*) Utils.Copy(dllName)));
+        var (versionTypeError, versionType) = GetResult(bfv_get_version_type((param_string*) Copy(path), (param_string*) Copy(dllName)));
         Assert.That(versionTypeError, Is.Empty);
         Assert.That(versionType, Is.EqualTo(4));
     }
