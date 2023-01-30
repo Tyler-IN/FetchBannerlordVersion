@@ -1,13 +1,14 @@
 ﻿using BUTR.NativeAOT.Shared;
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace FetchBannerlordVersion.Native
 {
     public static unsafe partial class Bindings
     {
-        [UnmanagedCallersOnly(EntryPoint = "alloc")]
+        [UnmanagedCallersOnly(EntryPoint = "alloc", CallConvs = new [] { typeof(CallConvCdecl) })]
         public static void* Alloc(nuint size)
         {
             Logger.LogInput(size);
@@ -25,7 +26,7 @@ namespace FetchBannerlordVersion.Native
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "dealloc")]
+        [UnmanagedCallersOnly(EntryPoint = "dealloc", CallConvs = new [] { typeof(CallConvCdecl) })]
         public static void Dealloc(param_ptr* ptr)
         {
             Logger.LogInput(ptr);
