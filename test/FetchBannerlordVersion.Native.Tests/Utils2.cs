@@ -9,21 +9,21 @@ namespace FetchBannerlordVersion.Native.Tests
     {
         private const string DllPath = "../../../../../src/FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll";
 
-        
+
         static unsafe Utils2()
         {
             Allocator.SetCustom(&alloc, &dealloc);
         }
-        
+
         [LibraryImport(DllPath), UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
         private static unsafe partial void* alloc(nuint size);
         [LibraryImport(DllPath), UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
         private static unsafe partial void dealloc(void* ptr);
         [LibraryImport(DllPath), UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
         private static unsafe partial int alloc_alive_count();
-        
+
         public static int LibraryAliveCount() => alloc_alive_count();
-        
+
         public static unsafe ReadOnlySpan<char> ToSpan(param_string* value) => new SafeStringMallocHandle((char*) value, false).ToSpan();
 
         public static unsafe string GetResult(return_value_string* ret)

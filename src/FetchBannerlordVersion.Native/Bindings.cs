@@ -9,7 +9,7 @@ namespace FetchBannerlordVersion.Native
 {
     public static unsafe partial class Bindings
     {
-        [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set", CallConvs = new [] { typeof(CallConvCdecl) })]
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set", CallConvs = new[] { typeof(CallConvCdecl) })]
         public static return_value_uint32* GetChangeSet(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
             Logger.LogInput(p_game_folder_path, p_lib_assembly);
@@ -30,7 +30,7 @@ namespace FetchBannerlordVersion.Native
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version", CallConvs = new [] { typeof(CallConvCdecl) })]
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version", CallConvs = new[] { typeof(CallConvCdecl) })]
         public static return_value_string* GetVersion(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
             Logger.LogInput(p_game_folder_path, p_lib_assembly);
@@ -51,7 +51,7 @@ namespace FetchBannerlordVersion.Native
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version_type", CallConvs = new [] { typeof(CallConvCdecl) })]
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_version_type", CallConvs = new[] { typeof(CallConvCdecl) })]
         public static return_value_uint32* GetVersionType(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
             Logger.LogInput(p_game_folder_path, p_lib_assembly);
