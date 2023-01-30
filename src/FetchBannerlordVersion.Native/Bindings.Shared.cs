@@ -8,13 +8,13 @@ namespace FetchBannerlordVersion.Native
 {
     public static unsafe partial class Bindings
     {
-        [UnmanagedCallersOnly(EntryPoint = "alloc", CallConvs = new [] { typeof(CallConvCdecl) })]
+        [UnmanagedCallersOnly(EntryPoint = "alloc")]
         public static void* Alloc(nuint size)
         {
             Logger.LogInput(size);
             try
             {
-                var result = NativeMemory.Alloc(size);
+                var result = Allocator.Alloc(size, true);
 
                 Logger.LogOutputPrimitive((int) result);
                 return result;
@@ -26,19 +26,37 @@ namespace FetchBannerlordVersion.Native
             }
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "dealloc", CallConvs = new [] { typeof(CallConvCdecl) })]
+        [UnmanagedCallersOnly(EntryPoint = "dealloc")]
         public static void Dealloc(param_ptr* ptr)
         {
             Logger.LogInput(ptr);
             try
             {
-                NativeMemory.Free(ptr);
+                Allocator.Free(ptr, true);
 
                 Logger.LogOutput();
             }
             catch (Exception e)
             {
                 Logger.LogException(e);
+            }
+        }
+
+        [UnmanagedCallersOnly(EntryPoint = "alloc_alive_count")]
+        public static int AllocAliveCount()
+        {
+            Logger.LogInput();
+            try
+            {
+                var result = Allocator.GetCurrentAllocations();
+
+                Logger.LogOutputPrimitive(result);
+                return result;
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                return -1;
             }
         }
     }

@@ -21,12 +21,12 @@ namespace FetchBannerlordVersion.Native
                 var result = (uint) Fetcher.GetChangeSet(Path.GetFullPath(gameFolderPath), libAssembly);
 
                 Logger.LogOutputPrimitive(result);
-                return return_value_uint32.AsValue(result);
+                return return_value_uint32.AsValue(result, false);
             }
             catch (Exception e)
             {
                 Logger.LogException(e);
-                return return_value_uint32.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
+                return return_value_uint32.AsError(Utils.Copy(e.ToString(), false), false);
             }
         }
 
@@ -42,12 +42,12 @@ namespace FetchBannerlordVersion.Native
                 var result = Fetcher.GetVersion(Path.GetFullPath(gameFolderPath), libAssembly);
 
                 Logger.LogOutput(result);
-                return return_value_string.AsValue(BUTR.NativeAOT.Shared.Utils.Copy(result));
+                return return_value_string.AsValue(Utils.Copy(result, false), false);
             }
             catch (Exception e)
             {
                 Logger.LogException(e);
-                return return_value_string.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
+                return return_value_string.AsError(Utils.Copy(e.ToString(), false), false);
             }
         }
 
@@ -63,12 +63,12 @@ namespace FetchBannerlordVersion.Native
                 var result = (uint) Fetcher.GetVersionType(Path.GetFullPath(gameFolderPath), libAssembly);
 
                 Logger.LogOutputPrimitive(result);
-                return return_value_uint32.AsValue(result);
+                return return_value_uint32.AsValue(result, false);
             }
             catch (Exception e)
             {
                 Logger.LogException(e);
-                return return_value_uint32.AsError(BUTR.NativeAOT.Shared.Utils.Copy(e.ToString()));
+                return return_value_uint32.AsError(Utils.Copy(e.ToString(), false), false);
             }
         }
     }

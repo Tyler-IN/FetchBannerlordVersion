@@ -26,23 +26,20 @@ namespace FetchBannerlordVersion.Native.Tests
         {
             Assert.DoesNotThrow(() =>
             {
-                var path = Path.GetFullPath("./Data");
-                var dllName = "TaleWorlds.Library.dll";
+                using var path = Utils.Copy(Path.GetFullPath("./Data"), true);
+                using var dllName = Utils.Copy("TaleWorlds.Library.dll", true);
 
-                using var path2 = Copy(path);
-                using var dllName2 = Copy(dllName);
-
-                var changeSet = GetResult(bfv_get_change_set((param_string*) path2.DangerousGetHandle(), (param_string*) dllName2.DangerousGetHandle()));
+                var changeSet = GetResult(bfv_get_change_set(path, dllName));
                 Assert.That(changeSet, Is.EqualTo(321460));
 
-                var version = GetResult(bfv_get_version((param_string*) path2.DangerousGetHandle(), (param_string*) dllName2.DangerousGetHandle()));
+                var version = GetResult(bfv_get_version(path, dllName));
                 Assert.That(version, Is.EqualTo("e1.8.0"));
 
-                var versionType = GetResult(bfv_get_version_type((param_string*) path2.DangerousGetHandle(), (param_string*) dllName2.DangerousGetHandle()));
+                var versionType = GetResult(bfv_get_version_type(path, dllName));
                 Assert.That(versionType, Is.EqualTo(4));
             });
 
-            Assert.That(DanglingAllocationsCount, Is.EqualTo(0));
+            Assert.That(LibraryAliveCount(), Is.EqualTo(0));
         }
     }
 }
