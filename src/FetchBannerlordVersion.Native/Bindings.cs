@@ -8,7 +8,7 @@ namespace FetchBannerlordVersion.Native
 {
     public static unsafe partial class Bindings
     {
-       [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set")]
+        [UnmanagedCallersOnly(EntryPoint = "bfv_get_change_set")]
         public static return_value_uint32* GetChangeSet(param_string* p_game_folder_path, param_string* p_lib_assembly)
         {
             Logger.LogInput(p_game_folder_path, p_lib_assembly);

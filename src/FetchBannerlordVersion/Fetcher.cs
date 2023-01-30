@@ -154,7 +154,7 @@ namespace FetchBannerlordVersion
 
                 if (!File.Exists(Path.Combine(libFolderPath, libAssembly)))
                     return VersionType.Unknown;
-                
+
                 using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                 using var peReader = new PEReader(fs);
                 var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
