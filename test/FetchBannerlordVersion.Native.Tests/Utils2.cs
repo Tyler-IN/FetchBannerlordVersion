@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace FetchBannerlordVersion.Native.Tests
 {
-    public static partial class Utils2
+    internal static partial class Utils2
     {
-        private const string DllPath = "../../../../../src/FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll";
+        public const string DllPath = "../../../../../src/FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll";
 
 
         static unsafe Utils2()
@@ -22,6 +22,7 @@ namespace FetchBannerlordVersion.Native.Tests
         [LibraryImport(DllPath), UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
         private static unsafe partial int alloc_alive_count();
 
+        public static unsafe void LibrarySetAllocator() => Allocator.SetCustom(&alloc, &dealloc);
         public static int LibraryAliveCount() => alloc_alive_count();
 
         public static unsafe ReadOnlySpan<char> ToSpan(param_string* value) => new SafeStringMallocHandle((char*) value, false).ToSpan();

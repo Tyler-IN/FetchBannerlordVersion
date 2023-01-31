@@ -9,9 +9,6 @@ namespace FetchBannerlordVersion.Native.Tests
 {
     public partial class Tests
     {
-        private const string DllPath = "../../../../../src/FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll";
-
-
         [LibraryImport(DllPath), UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
         private static unsafe partial return_value_uint32* bfv_get_change_set(param_string* p_game_folder_path, param_string* p_lib_assembly);
 

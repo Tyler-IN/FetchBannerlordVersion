@@ -20,7 +20,7 @@ namespace FetchBannerlordVersion.Native
 
                 var result = (uint) Fetcher.GetChangeSet(Path.GetFullPath(gameFolderPath), libAssembly);
 
-                Logger.LogOutputPrimitive(result);
+                Logger.LogOutput(result);
                 return return_value_uint32.AsValue(result, false);
             }
             catch (Exception e)
@@ -41,7 +41,7 @@ namespace FetchBannerlordVersion.Native
 
                 var result = Fetcher.GetVersion(Path.GetFullPath(gameFolderPath), libAssembly);
 
-                Logger.LogOutput(result);
+                Logger.LogOutput(result, nameof(GetVersion));
                 return return_value_string.AsValue(Utils.Copy(result, false), false);
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace FetchBannerlordVersion.Native
 
                 var result = (uint) Fetcher.GetVersionType(Path.GetFullPath(gameFolderPath), libAssembly);
 
-                Logger.LogOutputPrimitive(result);
+                Logger.LogOutput(result);
                 return return_value_uint32.AsValue(result, false);
             }
             catch (Exception e)
