@@ -21,11 +21,14 @@
     "url": "https://github.com/BUTR/FetchBannerlordVersion/issues"
   },
   "scripts": {
-    "build": "run-s build:*",
-    "build:native": "dotnet publish -r win-x64 --self-contained -c Release ../FetchBannerlordVersion.Native",
-    "build:copy-native-1": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll .",
-    "build:copy-native-2": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.lib .",
-    "build:copy-native-3": "copyfiles -f ../FetchBannerlordVersion.Native/FetchBannerlordVersion.Native.h .",
+    "install": "echo",
+    "native:0": "dotnet publish -r win-x64 --self-contained -c Release ../FetchBannerlordVersion.Native",
+    "native:1": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.dll .",
+    "native:2": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/native/FetchBannerlordVersion.Native.lib .",
+    "native:3": "copyfiles -f ../FetchBannerlordVersion.Native/bin/Release/net7.0/win-x64/FetchBannerlordVersion.Native.h .",
+    "build": "run-s native:* && run-s build:*",
+    "build-ts": "run-s build:*",
+    "build-native": "run-s native:*",
     "build:bindings": "node-gyp rebuild",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
@@ -45,8 +48,8 @@
     "cov:send": "run-s cov:lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "doc": "run-s doc:html && open-cli dist/docs/index.html",
-    "doc:html": "typedoc src/ --exclude **/*.spec.* --exclude **/_*.* --out dist/docs",
-    "doc:json": "typedoc src/ --exclude **/*.spec.* --exclude **/_*.* --json dist/docs/typedoc.json"
+    "doc:html": "typedoc --entryPoints src/lib/index.ts --exclude **/*.spec.* --exclude **/_*.* --out dist/docs",
+    "doc:json": "typedoc --entryPoints src/lib/index.ts --exclude **/*.spec.* --exclude **/_*.* --json dist/docs/typedoc.json"
   },
   "engines": {
     "node": ">=10"
@@ -54,11 +57,10 @@
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/node": "^18.7.9",
     "ava": "^3.15.0",
     "codecov": "^3.8.2",
     "copyfiles": "^2.4.1",
-    "cspell": "^5.13.1",
+    "cspell": "^6.19.2",
     "node-addon-api": "^5.0.0",
     "node-gyp": "^9.1.0",
     "npm-run-all": "^4.1.5",
@@ -67,6 +69,9 @@
     "ts-node": "^10.9.1",
     "typedoc": "^0.23.7",
     "typescript": "^4.7.4"
+  },
+  "overrides": {
+    "got": "^11.8.5"
   },
   "files": [
     "dist/main/index.*",

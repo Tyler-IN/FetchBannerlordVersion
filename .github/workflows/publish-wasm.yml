@@ -12,6 +12,7 @@ on:
 
 jobs:
   publish:
+    if: false # Something is wrong with IO
     name: Publish on NPM and GPR
     runs-on: ubuntu-latest
     steps:

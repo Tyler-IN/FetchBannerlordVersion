@@ -1,11 +1,14 @@
+#include "Bannerlord.Common.hpp"
+#include "Bannerlord.FetchVersion.hpp"
 #include <napi.h>
-#include "wrapper.h"
 
 using namespace Napi;
-using namespace FetchBannerlordVersion::Native::Wrapper;
 
-Object InitAll(const Env env, const Object exports) {
-  return Init(env, exports);
+Object InitAll(const Env env, const Object exports)
+{
+  Bannerlord::Common::Init(env, exports);
+  Bannerlord::FetchVersion::Init(env, exports);
+  return exports;
 }
 
 NODE_API_MODULE(NODE_GYP_MODULE_NAME, InitAll)

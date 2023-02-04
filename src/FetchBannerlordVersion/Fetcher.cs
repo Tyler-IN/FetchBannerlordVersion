@@ -40,7 +40,7 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -68,7 +68,7 @@ namespace FetchBannerlordVersion
                         xmlReader.Read();
                         xmlReader.ReadToDescendant("Singleplayer");
                         xmlReader.MoveToAttribute("Value");
-                        var split = xmlReader.Value.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                        var split = xmlReader.Value.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
                         return int.Parse(split.Last());
                     }
                     default:
@@ -85,7 +85,7 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -131,8 +131,8 @@ namespace FetchBannerlordVersion
                         xmlReader.Read();
                         xmlReader.ReadToDescendant("Singleplayer");
                         xmlReader.MoveToAttribute("Value");
-                        var split = xmlReader.Value.Split('.', StringSplitOptions.RemoveEmptyEntries);
-                        return string.Join('.', split.Take(split.Length - 1));
+                        var split = xmlReader.Value.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+                        return string.Join(".", split.Take(split.Length - 1));
                     }
                     default:
                         return "";
@@ -148,9 +148,12 @@ namespace FetchBannerlordVersion
         {
             try
             {
-                var libFolderPath = Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client");
+                var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
                 if (File.Exists(Path.Combine(libFolderPath, "Version.xml")))
                     return VersionType.V4;
+
+                if (!File.Exists(Path.Combine(libFolderPath, libAssembly)))
+                    return VersionType.Unknown;
 
                 using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                 using var peReader = new PEReader(fs);

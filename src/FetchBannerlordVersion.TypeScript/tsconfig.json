@@ -15,9 +15,6 @@
     "lib": [
       "es2017"
     ],
-    "types": [
-      "@types/emscripten"
-    ],
     "typeRoots": [
       "node_modules/@types",
       "src/types"

@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Nati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{951005FA-703B-4CA5-ABBB-5B089770D255}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Native.Tests", "FetchBannerlordVersion.Native.Tests\FetchBannerlordVersion.Native.Tests.csproj", "{C0515540-7666-4827-B08A-98ABBB437E9D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7F382B20-4E8C-46C6-9A9D-2C5D8B55B1A7}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\dotnet-format-daily.yml = ..\.github\workflows\dotnet-format-daily.yml
@@ -29,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.WASM", "FetchBannerlordVersion.WASM\FetchBannerlordVersion.WASM.csproj", "{89928F2E-BCCC-42A8-8525-D9589E1BAB2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Native.Tests", "..\test\FetchBannerlordVersion.Native.Tests\FetchBannerlordVersion.Native.Tests.csproj", "{AC443C15-BE56-4004-8393-8303D222ECE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +48,14 @@ Global
 		{513E959C-A507-41E8-9461-5E6CDE9D1B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513E959C-A507-41E8-9461-5E6CDE9D1B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{513E959C-A507-41E8-9461-5E6CDE9D1B53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0515540-7666-4827-B08A-98ABBB437E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0515540-7666-4827-B08A-98ABBB437E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0515540-7666-4827-B08A-98ABBB437E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0515540-7666-4827-B08A-98ABBB437E9D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC443C15-BE56-4004-8393-8303D222ECE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC443C15-BE56-4004-8393-8303D222ECE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC443C15-BE56-4004-8393-8303D222ECE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC443C15-BE56-4004-8393-8303D222ECE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,8 +64,8 @@ Global
 		{F79E2525-CBDC-4DD5-8C31-331C16AA62D7} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
 		{10FC8852-1AB2-40D7-A592-91C3D88E29C3} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
 		{513E959C-A507-41E8-9461-5E6CDE9D1B53} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
-		{C0515540-7666-4827-B08A-98ABBB437E9D} = {951005FA-703B-4CA5-ABBB-5B089770D255}
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
+		{AC443C15-BE56-4004-8393-8303D222ECE2} = {951005FA-703B-4CA5-ABBB-5B089770D255}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BE0F862-BB80-4DE2-95E8-965C5AAC9356}

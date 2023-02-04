@@ -2,40 +2,34 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TrimMode>link</TrimMode>
-    <InvariantGlobalization>true</InvariantGlobalization>
-    <UseSystemResourceKeys>false</UseSystemResourceKeys>
-    <StripSymbols>true</StripSymbols>
+    <PublishAot>true</PublishAot>
+    <TrimMode>full</TrimMode>
     <DebugType>none</DebugType>
-    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
-
-    <IlcTrimMetadata>true</IlcTrimMetadata>
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
-    <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
-    <IlcInvariantGlobalization>true</IlcInvariantGlobalization>
-    <IlcDisableReflection>true</IlcDisableReflection>
-
+    <NativeLib>Shared</NativeLib>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration) == 'Debug'">
+    <DefineConstants>$(DefineConstants);TRACK_ALLOCATIONS;LOGGING;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration) == 'Release'">
+    <DefineConstants>$(DefineConstants);TRACK_ALLOCATIONS;</DefineConstants>
     <DebuggerSupport>false</DebuggerSupport>
-    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <AutoreleasePoolSupport>false</AutoreleasePoolSupport>
     <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
     <EventSourceSupport>false</EventSourceSupport>
     <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
-    <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseNativeHttpHandler>true</UseNativeHttpHandler>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+
+    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FetchBannerlordVersion\FetchBannerlordVersion.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Update="FetchBannerlordVersion.Native.h">
@@ -45,6 +39,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FetchBannerlordVersion\FetchBannerlordVersion.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BUTR.NativeAOT.Generator" Version="1.0.68" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+    <PackageReference Include="BUTR.NativeAOT.Shared.Source" Version="1.0.68" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+    <PackageReference Include="ConcurrentHashSet" Version="1.3.0" />
   </ItemGroup>
 
 </Project>

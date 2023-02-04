@@ -1,27 +1,24 @@
 import { IFetchBannerlordVersion } from "./types";
 
-const fetcher: IFetchBannerlordVersion = require('./../../fetchblversion.node');
+const fetcher: IFetchBannerlordVersion & { allocAliveCount(): number; } = require('./../../fetchblversion.node');
 
-export class FetchBannerlordVersion implements IFetchBannerlordVersion {
-    static async createAsync(): Promise<FetchBannerlordVersion> {
-        const lib = new FetchBannerlordVersion();
-        return lib;
-    }
+export const allocAliveCount = (): number => {
+  return fetcher.allocAliveCount();
+}
 
-    private constructor() { }
+export class FetchBannerlordVersion {
+  /* istanbul ignore next */
+  private constructor() { }
 
-    getChangeSet(gameFolderPath: string, libAssembly: string): number {
-      return fetcher.getChangeSet(gameFolderPath, libAssembly);
-    }
+  static getChangeSet(gameFolderPath: string, libAssembly: string): number {
+    return fetcher.getChangeSet(gameFolderPath, libAssembly);
+  }
 
-    getVersion(gameFolderPath: string, libAssembly: string): string {
-      return fetcher.getVersion(gameFolderPath, libAssembly);
-    }
+  static getVersion(gameFolderPath: string, libAssembly: string): string {
+    return fetcher.getVersion(gameFolderPath, libAssembly);
+  }
 
-    getVersionType(gameFolderPath: string, libAssembly: string): number {
-      return fetcher.getVersionType(gameFolderPath, libAssembly);
-    }
-
-    async dispose(): Promise<void> {
-    }
+  static getVersionType(gameFolderPath: string, libAssembly: string): number {
+    return fetcher.getVersionType(gameFolderPath, libAssembly);
+  }
 }

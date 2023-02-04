@@ -1,30 +1,24 @@
 import test from 'ava';
 
-import { FetchBannerlordVersion } from '../lib/FetchBannerlordVersion';
+import { FetchBannerlordVersion, allocAliveCount } from '../lib/FetchBannerlordVersion';
 
-test('sort', async (t) => {
-  const fetcher = await FetchBannerlordVersion.createAsync();
+const isDebug = process.argv[2] == "Debug";
 
+test('Main', async (t) => {
   const path = __dirname;
   const dllName = 'TaleWorlds.Library.dll';
 
-  const version = fetcher.getVersion(path, dllName);
-  if (version !== 'e1.8.0') {
-    t.fail();
-    return;
-  }
+  const changeSet = FetchBannerlordVersion.getChangeSet(path, dllName);
+  t.is(changeSet, 321460);
 
-  const versionType = fetcher.getVersionType(path, dllName);
-  if (versionType !== 4) {
-    t.fail();
-    return;
-  }
+  const version = FetchBannerlordVersion.getVersion(path, dllName);
+  t.is(version, 'e1.8.0');
 
-  const changeSet = fetcher.getChangeSet(path, dllName);
-  if (changeSet !== 321460) {
-    t.fail();
-    return;
-  }
+  const versionType = FetchBannerlordVersion.getVersionType(path, dllName);
+  t.is(versionType, 4);
 
-  await fetcher.dispose();
+  if (isDebug)
+    t.deepEqual(allocAliveCount(), 0);
+
+  t.pass();
 });
