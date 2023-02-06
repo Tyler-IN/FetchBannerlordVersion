@@ -30,7 +30,7 @@ jobs:
       - run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Debug
       - run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Release
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           cache: 'npm'
@@ -49,7 +49,7 @@ jobs:
 
       - run: cd ./src/FetchBannerlordVersion.Native.TypeScript && npm run test
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
@@ -59,7 +59,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM_TOKEN}}
 
-      - uses: actions/setup-node@v3.5.1
+      - uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
