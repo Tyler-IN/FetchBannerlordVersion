@@ -25,6 +25,11 @@
         /// <summary>
         /// ChangeSet and singleplayer/multiplayer in Version.xml
         /// </summary>
-        V4
+        V4,
+        
+        /// <summary>
+        /// const int DefaultChangeSet in ApplicationVersion. VirtualFolders with Shipping_Client
+        /// </summary>     
+        V5
     }
 }

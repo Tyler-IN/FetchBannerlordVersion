@@ -9,7 +9,7 @@ namespace FetchBannerlordVersion
 {
     public static class Fetcher
     {
-        private static CustomAttribute GetVirtualFileAttribute(MetadataReader mdReader)
+        private static CustomAttribute? GetVirtualFileAttributeV1(MetadataReader mdReader)
         {
             var vfType = mdReader.TypeDefinitions
                 .GetType(mdReader, "TaleWorlds.Library", "VirtualFolders");
@@ -21,7 +21,32 @@ namespace FetchBannerlordVersion
                 .GetField(mdReader, "Version")
                 .GetCustomAttributes()
                 .Select(mdReader.GetCustomAttribute)
-                .First(a =>
+                .FirstOrDefault(a =>
+                {
+                    var ctor = a.Constructor;
+                    var ctorKind = ctor.Kind;
+                    if (ctorKind != HandleKind.MethodDefinition)
+                        return false;
+
+                    var attributeDth = mdReader.GetMethodDefinition((MethodDefinitionHandle) ctor).GetDeclaringType();
+                    var attributeDt = mdReader.GetTypeDefinition(attributeDth);
+                    var name = mdReader.GetString(attributeDt.Name);
+                    return name == "VirtualFileAttribute";
+                });
+        }
+        private static CustomAttribute? GetVirtualFileAttributeV2(MetadataReader mdReader)
+        {
+            var vfType = mdReader.TypeDefinitions
+                .GetType(mdReader, "TaleWorlds.Library", "VirtualFolders");
+
+            return vfType
+                .GetNestedType(mdReader, "Shipping_Client")
+                .GetNestedType(mdReader, "bin")
+                .GetNestedType(mdReader, "Parameters")
+                .GetField(mdReader, "Version")
+                .GetCustomAttributes()
+                .Select(mdReader.GetCustomAttribute)
+                .FirstOrDefault(a =>
                 {
                     var ctor = a.Constructor;
                     var ctorKind = ctor.Kind;
@@ -49,6 +74,7 @@ namespace FetchBannerlordVersion
                         return 0;
                     case VersionType.V2:
                     case VersionType.V3:
+                    case VersionType.V5:
                     {
                         using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                         using var peReader = new PEReader(fs);
@@ -96,7 +122,7 @@ namespace FetchBannerlordVersion
                         using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                         using var peReader = new PEReader(fs);
                         var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
-                        var versionVirtualFileAttribute = GetVirtualFileAttribute(mdReader);
+                        var versionVirtualFileAttribute = GetVirtualFileAttributeV1(mdReader)!.Value;
                         var attributeReader = mdReader.GetBlobReader(versionVirtualFileAttribute.Value);
                         attributeReader.ReadByte();
                         attributeReader.ReadByte();
@@ -112,7 +138,7 @@ namespace FetchBannerlordVersion
                         using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
                         using var peReader = new PEReader(fs);
                         var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
-                        var versionVirtualFileAttribute = GetVirtualFileAttribute(mdReader);
+                        var versionVirtualFileAttribute = GetVirtualFileAttributeV1(mdReader)!.Value;
                         var attributeReader = mdReader.GetBlobReader(versionVirtualFileAttribute.Value);
                         attributeReader.ReadByte();
                         attributeReader.ReadByte();
@@ -133,6 +159,23 @@ namespace FetchBannerlordVersion
                         xmlReader.MoveToAttribute("Value");
                         var split = xmlReader.Value.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
                         return string.Join(".", split.Take(split.Length - 1));
+                    }
+                    case VersionType.V5:
+                    {
+                        using var fs = File.OpenRead(Path.Combine(libFolderPath, libAssembly));
+                        using var peReader = new PEReader(fs);
+                        var mdReader = peReader.GetMetadataReader(MetadataReaderOptions.None);
+                        var versionVirtualFileAttribute = GetVirtualFileAttributeV2(mdReader)!.Value;
+                        var attributeReader = mdReader.GetBlobReader(versionVirtualFileAttribute.Value);
+                        attributeReader.ReadByte();
+                        attributeReader.ReadByte();
+                        attributeReader.ReadSerializedString();
+                        var xml = attributeReader.ReadSerializedString() ?? string.Empty;
+                        using var xmlReader = XmlReader.Create(new StringReader(xml));
+                        xmlReader.Read();
+                        xmlReader.ReadToDescendant("Singleplayer");
+                        xmlReader.MoveToAttribute("Value");
+                        return xmlReader.Value;
                     }
                     default:
                         return "";
@@ -166,9 +209,16 @@ namespace FetchBannerlordVersion
                     .Any(f => mdReader.GetString(mdReader.GetFieldDefinition(f).Name) == "DefaultChangeSet");
 
 
-                var versionVirtualFileAttribute = GetVirtualFileAttribute(mdReader);
+                var versionVirtualFileAttributeV1 = GetVirtualFileAttributeV1(mdReader);
+                if (versionVirtualFileAttributeV1 is null)
+                {
+                    if (GetVirtualFileAttributeV2(mdReader) is not null)
+                        return VersionType.V5;
+                    
+                    return VersionType.Unknown;
+                }
 
-                var attributeReader = mdReader.GetBlobReader(versionVirtualFileAttribute.Value);
+                var attributeReader = mdReader.GetBlobReader(versionVirtualFileAttributeV1.Value.Value);
 
                 if (attributeReader.ReadByte() != 0x01 || attributeReader.ReadByte() != 0x00)
                     throw new NotSupportedException("Custom Attribute prolog is invalid.");
