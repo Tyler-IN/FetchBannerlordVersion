@@ -66,6 +66,8 @@ namespace FetchBannerlordVersion
             try
             {
                 var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
+                if (!Directory.Exists(libFolderPath))
+                    libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Gaming.Desktop.x64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -112,6 +114,8 @@ namespace FetchBannerlordVersion
             try
             {
                 var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
+                if (!Directory.Exists(libFolderPath))
+                    libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Gaming.Desktop.x64_Shipping_Client"));
                 switch (GetVersionType(gameFolderPath, libAssembly))
                 {
                     case VersionType.Unknown:
@@ -192,6 +196,8 @@ namespace FetchBannerlordVersion
             try
             {
                 var libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Win64_Shipping_Client"));
+                if (!Directory.Exists(libFolderPath))
+                    libFolderPath = Path.GetFullPath(Path.Combine(gameFolderPath, "bin", "Gaming.Desktop.x64_Shipping_Client"));
                 if (File.Exists(Path.Combine(libFolderPath, "Version.xml")))
                     return VersionType.V4;
 
