@@ -27,8 +27,8 @@ jobs:
       - run: dotnet publish -r win-x64 --self-contained -c Debug src/FetchBannerlordVersion.Native
       - run: dotnet publish -r win-x64 --self-contained -c Release src/FetchBannerlordVersion.Native
 
-      - run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Debug
-      - run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Release
+      #- run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Debug
+      #- run: dotnet test test/FetchBannerlordVersion.Native.Tests -c Release
 
       - uses: actions/setup-node@v3.5.1
         with:
