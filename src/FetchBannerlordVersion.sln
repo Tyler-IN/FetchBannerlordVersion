@@ -30,6 +30,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.WASM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Native.Tests", "..\test\FetchBannerlordVersion.Native.Tests\FetchBannerlordVersion.Native.Tests.csproj", "{AC443C15-BE56-4004-8393-8303D222ECE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Source", "FetchBannerlordVersion.Source\FetchBannerlordVersion.Source.csproj", "{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.Models", "FetchBannerlordVersion.Models\FetchBannerlordVersion.Models.csproj", "{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchBannerlordVersion.DependencyInjection", "FetchBannerlordVersion.DependencyInjection\FetchBannerlordVersion.DependencyInjection.csproj", "{F7B6752B-502D-4CE4-AA4B-C363E3B960E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +62,18 @@ Global
 		{AC443C15-BE56-4004-8393-8303D222ECE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC443C15-BE56-4004-8393-8303D222ECE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC443C15-BE56-4004-8393-8303D222ECE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B6752B-502D-4CE4-AA4B-C363E3B960E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B6752B-502D-4CE4-AA4B-C363E3B960E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B6752B-502D-4CE4-AA4B-C363E3B960E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B6752B-502D-4CE4-AA4B-C363E3B960E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +84,9 @@ Global
 		{513E959C-A507-41E8-9461-5E6CDE9D1B53} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
 		{89928F2E-BCCC-42A8-8525-D9589E1BAB2C} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
 		{AC443C15-BE56-4004-8393-8303D222ECE2} = {951005FA-703B-4CA5-ABBB-5B089770D255}
+		{82EF4185-6DD2-4AF9-8FC1-48A57432F4EB} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
+		{5A997AAE-2D73-46CB-9A43-2FF4BAC7275A} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
+		{F7B6752B-502D-4CE4-AA4B-C363E3B960E2} = {9F1A504D-F360-4261-B5DA-57A61DFCA67C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BE0F862-BB80-4DE2-95E8-965C5AAC9356}

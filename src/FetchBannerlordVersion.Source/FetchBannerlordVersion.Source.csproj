@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Reflection.Metadata" Version="8.0.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,5 +41,10 @@
       <DefineConstants>$(DefineConstants);REFLECTION_FREE;</DefineConstants>
     </PropertyGroup>
   </Target>
+
+  <ItemGroup>
+    <Compile Include="..\FetchBannerlordVersion.Models\VersionType.cs" />
+    <Compile Include="..\FetchBannerlordVersion\*.cs" />
+  </ItemGroup>
 
 </Project>
