@@ -29,6 +29,8 @@ jobs:
         dotnet-version: 8.x.x
         include-prerelease: true
 
+    - run: dotnet pack -c Release src/FetchBannerlordVersion.Models -o ./packages
+      
     - run: dotnet pack -c Release src/FetchBannerlordVersion -o ./packages
 
     - run: dotnet pack -c Release src/FetchBannerlordVersion.Source -o ./packages
