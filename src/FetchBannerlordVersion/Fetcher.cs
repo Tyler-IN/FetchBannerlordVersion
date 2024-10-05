@@ -103,6 +103,8 @@ namespace FetchBannerlordVersion
                         xmlReader.ReadToDescendant("Singleplayer");
                         xmlReader.MoveToAttribute("Value");
                         var split = xmlReader.Value.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (split.Length == 3)
+                            goto case VersionType.V5;
                         return int.Parse(split.Last());
                     }
                     default:
@@ -168,7 +170,7 @@ namespace FetchBannerlordVersion
                         xmlReader.ReadToDescendant("Singleplayer");
                         xmlReader.MoveToAttribute("Value");
                         var split = xmlReader.Value.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-                        return string.Join(".", split.Take(split.Length - 1));
+                        return string.Join(".", split.Take(split.Length == 3 ? split.Length : split.Length - 1));
                     }
                     case VersionType.V5:
                     {
